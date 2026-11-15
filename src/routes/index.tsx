@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  ArrowRight, BadgeCheck, ChevronDown, Heart, Instagram, Menu, Search,
+  ArrowRight, BadgeCheck, Heart, Instagram, Menu, Search,
   ShieldCheck, ShoppingBag, Sparkles, Truck, X, Facebook, MessageCircle,
 } from "lucide-react";
 
@@ -55,8 +55,7 @@ function HomePage() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("Todas");
-  const [newsletterEmail, setNewsletterEmail] = useState("");
+    const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterMessage, setNewsletterMessage] = useState("");
 
   const visibleCategories = useMemo(
@@ -66,7 +65,7 @@ function HomePage() {
 
   const closeMenu = () => setMobileOpen(false);
 
-  function handleNewsletter(event: React.FormEvent<HTMLFormElement>) {
+  function handleNewsletter(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!newsletterEmail.trim()) return;
     const message = `Olá! Gostaria de receber novidades do Universo das Barbies. O meu e-mail é: ${newsletterEmail.trim()}`;
@@ -149,7 +148,7 @@ function HomePage() {
         {search && <p className="search-result-label">{visibleCategories.length} categoria(s) encontrada(s) para “{search}”.</p>}
         <div className="category-grid">
           {visibleCategories.map((category, index) => (
-            <a className={`category-card category-card-${index + 1}`} href="#produtos" key={category.name} onClick={() => setActiveCategory(category.name)}>
+            <a className={`category-card category-card-${index + 1}`} href="#produtos" key={category.name}>
               <img src={imageUrl(category.image, 700)} alt={category.name} loading="lazy" />
               <span className="category-shade" />
               <span className="category-info"><small>{category.note}</small><strong>{category.name}</strong><span className="category-link">Explorar <ArrowRight size={15} /></span></span>
